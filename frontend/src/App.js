@@ -1,47 +1,71 @@
-import data from './data';
+import { useSelector, useDispatch } from 'react-redux';
+import { BrowserRouter, Link, Route } from 'react-router-dom';
+import { signout } from './actions/userActions';
+
+import CartScreen from './screens/CartScreen';
+import HomeScreen from './screens/HomeScreen';
+import PaymentMethodScreen from './screens/PaymentMethodScreen';
+import ProductScreen from './screens/ProductScreen';
+import RegisterScreen from './screens/RegisterScreen';
+import ShippingAddressScreen from './screens/ShippingAddressScreen';
+import SigninScreen from './screens/SigninScreen';
 
 function App() {
+  const cart = useSelector(state => state.cart);
+  const { cartItems } = cart;
+
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+
+  const dispatch = useDispatch();
+  const signoutHandler = () => {
+    dispatch(signout());
+  }
+
   return (
-    <div className="grid-container">
-      <header className="row">
-        <div>
-          <a className="brand" href="/">IceCream Shop Test</a>
-        </div>
-        <div>
-          <a href="/cart">Cart</a>
-          <a href="/signin">Sign In</a>
-        </div>
-      </header>
-      <main>
-        <div className="row center">
-          {
-            data.products.map((product) => (
-              <div className="card" key={product._id}>
-                <a href={`/product/${product._id}`}>
-                  <img className="medium" src={product.image} alt={product.name} />
-                </a>
-                <div className="card-body">
-                  <a href={`/product/${product._id}`}>
-                    <h2>{product.name}</h2>
-                  </a>
-                  <div className="rating">
-                    <span><i className="fas fa-star"></i></span>
-                    <span><i className="fas fa-star"></i></span>
-                    <span><i className="fas fa-star"></i></span>
-                    <span><i className="fas fa-star"></i></span>
-                    <span><i className="fas fa-star"></i></span>
-                  </div>
-                  <div className="price">{product.price}€</div>
+    <BrowserRouter>
+      <div className="grid-container">
+        <header className="row">
+          <div>
+            <Link className="brand" to="/">IceCream Shop Test</Link>
+          </div>
+          <div>
+            <Link to="/cart">Cart
+            {cartItems.length > 0 && (
+                <span className="badge">{cartItems.length}</span>
+              )}
+            </Link>
+            {
+              userInfo ? (
+                <div className="dropdown">
+                  <Link to="#">
+                    {userInfo.name}
+                    <i className="fas fa-caret-down"></i>
+                  </Link>
+                  <ul className="dropdown-content">
+                    <Link to="#signout" onClick={signoutHandler}>Sign Out</Link>
+                  </ul>
                 </div>
-              </div>
-            ))
-          }
-        </div>
-      </main>
-      <footer className="row center">
-        All rights reserved
+              ) : (
+                  <Link to="/signin">Sign In</Link>
+                )
+            }
+          </div>
+        </header>
+        <main>
+          <Route path="/cart/:id?" component={CartScreen}></Route>
+          <Route path="/product/:id" component={ProductScreen}></Route>
+          <Route path="/signin" component={SigninScreen}></Route>
+          <Route path="/register" component={RegisterScreen}></Route>
+          <Route path="/shipping" component={ShippingAddressScreen}></Route>
+          <Route path="/payment" component={PaymentMethodScreen}></Route>
+          <Route path="/" component={HomeScreen} exact></Route>
+        </main>
+        <footer className="row center">
+          All rights reserved
         </footer>
-    </div>
+      </div>
+    </BrowserRouter>
   );
 }
 
