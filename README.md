@@ -17,6 +17,8 @@
 10. express-async-handler - *(show async errors in api calls)*
 11. jsonWebToken - *(generate Token Password)*
 12. dotenv - *(using environment variables)*
+13. react-paypal-button-v2 - *(paypal integration button)*
+14. multer - *(manage upload files)*
 
 **Tools used:**
 

@@ -2,3 +2,4 @@ node_modules
 builds
 .env
 .eslintrc.js
+/uploads/*.jpg
