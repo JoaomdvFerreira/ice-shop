@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
+    "build": "cd frontend && npm install && npm run build",
     "start": "nodemon --watch backend --exec node --experimental-modules backend/server.js"
   },
   "repository": "https://github.com/JoaomdvFerreira/ice-shop.git",
@@ -22,5 +23,9 @@
   "devDependencies": {
     "eslint": "^7.14.0",
     "eslint-plugin-react": "^7.21.5"
+  },
+  "engines": {
+    "node": "14.15.0",
+    "npm": "6.9.0"
   }
 }
