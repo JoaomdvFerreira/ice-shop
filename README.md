@@ -26,3 +26,4 @@
 2. NodeJs - (v14.15.0)
 3. MongoDB Compass - (v1.23.0)
 4. Postman - (v7.36.0)
+5. NPM - (v6.14.8)
