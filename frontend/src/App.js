@@ -21,6 +21,8 @@ import SigninScreen from './screens/SigninScreen';
 import UserEditScreen from './screens/UserEditScreen';
 import UserListScreen from './screens/UserListScreen';
 
+import { FaCaretDown } from 'react-icons/fa';
+
 function App() {
   const cart = useSelector(state => state.cart);
   const { cartItems } = cart;
@@ -51,7 +53,7 @@ function App() {
                 <div className="dropdown">
                   <Link to="#">
                     {userInfo.name}
-                    <i className="fas fa-caret-down"></i>
+                    <FaCaretDown />
                   </Link>
                   <ul className="dropdown-content">
                     <li>
@@ -71,7 +73,7 @@ function App() {
             }
             {userInfo && userInfo.isAdmin && (
               <div className="dropdown">
-                <Link to="#admin">Admin {' '}<i className="fas fa-caret-down"></i></Link>
+                <Link to="#admin">Admin {' '}<FaCaretDown /></Link>
                 <ul className="dropdown-content">
                   <li>
                     <Link to="/dashboard">Dashboard</Link>
