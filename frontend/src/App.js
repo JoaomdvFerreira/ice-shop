@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { BrowserRouter, Link, Route } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 import { signout } from './actions/userActions';
 import AdminRoute from './components/AdminRoute';
 import PrivateRoute from './components/PrivateRoute';
@@ -22,6 +22,7 @@ import UserEditScreen from './screens/UserEditScreen';
 import UserListScreen from './screens/UserListScreen';
 
 import { FaCaretDown } from 'react-icons/fa';
+import NotFoundRoute from './components/NotFoundRoute';
 
 function App() {
   const cart = useSelector(state => state.cart);
@@ -93,22 +94,25 @@ function App() {
           </div>
         </header>
         <main>
-          <Route path="/cart/:id?" component={CartScreen}></Route>
-          <Route path="/product/:id" component={ProductScreen} exact></Route>
-          <Route path="/product/:id/edit" component={ProductEditScreen} exact></Route>
-          <Route path="/signin" component={SigninScreen}></Route>
-          <Route path="/register" component={RegisterScreen}></Route>
-          <Route path="/shipping" component={ShippingAddressScreen}></Route>
-          <Route path="/payment" component={PaymentMethodScreen}></Route>
-          <Route path="/placeorder" component={PlaceOrderScreen}></Route>
-          <Route path="/order/:id" component={OrderScreen}></Route>
-          <Route path="/orderhistory" component={OrderHistoryScreen}></Route>
-          <PrivateRoute path="/profile" component={ProfileScreen}></PrivateRoute>
-          <AdminRoute path="/productlist" component={ProductListScreen}></AdminRoute>
-          <AdminRoute path="/orderlist" component={OrderListScreen}></AdminRoute>
-          <AdminRoute path="/userlist" component={UserListScreen}></AdminRoute>
-          <AdminRoute path="/user/:id/edit" component={UserEditScreen}></AdminRoute>
-          <Route path="/" component={HomeScreen} exact></Route>
+          <Switch>
+            <Route path="/cart/:id?" component={CartScreen}></Route>
+            <Route path="/product/:id" component={ProductScreen} exact></Route>
+            <Route path="/product/:id/edit" component={ProductEditScreen} exact></Route>
+            <Route path="/signin" component={SigninScreen} exact></Route>
+            <Route path="/register" component={RegisterScreen} exact></Route>
+            <Route path="/shipping" component={ShippingAddressScreen} exact></Route>
+            <Route path="/payment" component={PaymentMethodScreen} exact></Route>
+            <Route path="/placeorder" component={PlaceOrderScreen} exact></Route>
+            <Route path="/order/:id" component={OrderScreen} exact></Route>
+            <Route path="/orderhistory" component={OrderHistoryScreen} exact></Route>
+            <PrivateRoute path="/profile" component={ProfileScreen} exact></PrivateRoute>
+            <AdminRoute path="/productlist" component={ProductListScreen} exact></AdminRoute>
+            <AdminRoute path="/orderlist" component={OrderListScreen} exact></AdminRoute>
+            <AdminRoute path="/userlist" component={UserListScreen} exact></AdminRoute>
+            <AdminRoute path="/user/:id/edit" component={UserEditScreen} exact></AdminRoute>
+            <Route path="/" component={HomeScreen} exact></Route>
+            <Route component={NotFoundRoute}></Route>
+          </Switch>
         </main>
         <footer className="row center">
           All rights reserved

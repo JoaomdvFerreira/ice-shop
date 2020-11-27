@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { detailsUser, updateUserProfile } from '../actions/userActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+import PasswordStrenghtMeter from "../components/PasswordStrenghtMeter";
 import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
 export default function ProfileScreen() {
     const [name, setName] = useState('');
@@ -85,6 +86,7 @@ export default function ProfileScreen() {
                                         placeholder="Enter password"
                                         onChange={(e) => setPassword(e.target.value)}
                                     ></input>
+                                    <PasswordStrenghtMeter password={password} />
                                 </div>
                                 <div>
                                     <label htmlFor="confirmPassword">Confirm Password</label>

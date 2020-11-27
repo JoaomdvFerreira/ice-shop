@@ -92,7 +92,7 @@ export const deleteProduct = (productId) => async (dispatch, getState) => {
     dispatch({ type: PRODUCT_DELETE_REQUEST, payload: productId });
     const { userSignin: { userInfo } } = getState();
     try {
-        const { data } = Axios.delete(`/api/products/${productId}`, {
+        const { data } = await Axios.delete(`/api/products/${productId}`, {
             headers: { Authorization: `Bearer ${userInfo.token}` }
         });
         dispatch({

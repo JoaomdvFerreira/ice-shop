@@ -5,6 +5,7 @@ import { register } from '../actions/userActions';
 
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+import PasswordStrenghtMeter from '../components/PasswordStrenghtMeter';
 export default function RegisterScreen(props) {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
@@ -69,6 +70,7 @@ export default function RegisterScreen(props) {
                         required
                         onChange={e => setPassword(e.target.value)}>
                     </input>
+                    <PasswordStrenghtMeter password={password} />
                 </div>
                 <div>
                     <label htmlFor="confirmPassword">Confirm Password</label>

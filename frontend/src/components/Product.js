@@ -9,9 +9,9 @@ export default function Product(props) {
             </Link>
             <div className="card-body">
                 <a href={`/product/${product._id}`}>
-                    <h2>{product.name}</h2>
+                    <h2 style={{ margin: '0px' }}>{product.name}</h2>
                 </a>
-                <p>{product.description}</p>
+                <p style={{ marginTop: '0px' }}>{product.description}</p>
                 <Rating rating={product.rating} numReviews={product.numReviews} />
                 <div className="price">{product.price}€</div>
             </div>

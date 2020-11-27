@@ -5,6 +5,8 @@ import { signin } from '../actions/userActions';
 
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+import GoogleSignin from '../components/GoogleSignin';
+import FacebookSignin from '../components/FacebookSignin';
 export default function SigninScreen(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -66,6 +68,10 @@ export default function SigninScreen(props) {
                         New customer? {' '}
                         <Link to={`/register?redirect=${redirect}`}>Create your account</Link>
                     </div>
+                </div>
+                <div className="external-signins">
+                    <GoogleSignin />
+                    <FacebookSignin />
                 </div>
             </form>
         </div>
