@@ -16,7 +16,7 @@ export default function FacebookSignin() {
     }
 
     const responseFacebook = (res) => {
-        alert("Login Failed -> response:", res);
+        alert("to be completed");
     }
     return (
         <>

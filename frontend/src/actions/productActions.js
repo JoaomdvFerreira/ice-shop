@@ -17,6 +17,18 @@ import {
     PRODUCT_DELETE_FAIL,
 } from "../constants/productConstants"
 
+export const searchProducts = ({ name = '' }) => async (dispatch) => {
+    dispatch({
+        type: PRODUCT_LIST_REQUEST
+    });
+    try {
+        const { data } = await Axios.get(`/api/products/search?name=${name}`);
+        dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+        return;
+    } catch (error) {
+        dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message })
+    }
+}
 export const listProducts = () => async (dispatch) => {
     dispatch({
         type: PRODUCT_LIST_REQUEST

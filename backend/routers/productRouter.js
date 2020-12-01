@@ -5,28 +5,37 @@ import Product from '../models/productModel.js';
 import { isAdmin, isAuth } from '../utils.js';
 const productRouter = express.Router();
 
-productRouter.get('/', expressAsyncHandler(async (req, res) => {
-    const products = await Product.find({});
-    res.send(products);
-}));
+productRouter.get('/',
+    expressAsyncHandler(async (req, res) => {
+        const products = await Product.find({});
+        res.send(products);
+    }));
 
-productRouter.get('/seed', expressAsyncHandler(async (req, res) => {
-    // await Product.remove({});
-    const createdProducts = await Product.insertMany(data.products);
-    res.send({ createdProducts });
-}));
+productRouter.get('/search',
+    expressAsyncHandler(async (req, res) => {
+        const name = req.query.name || '';
+        const nameFilter = name ? { name: { $regex: name, $options: 'i' } } : {};
+        const products = await Product.find({ ...nameFilter });
+        res.send(products);
+    }));
 
-productRouter.get('/:id', expressAsyncHandler(async (req, res) => {
-    const product = await Product.findById(req.params.id);
-    if (product) {
-        res.send(product);
-    } else {
-        res.status(404).send({ message: 'Product Not Found' });
-    }
-}));
+productRouter.get('/seed',
+    expressAsyncHandler(async (req, res) => {
+        const createdProducts = await Product.insertMany(data.products);
+        res.send({ createdProducts });
+    }));
 
-productRouter.post(
-    '/',
+productRouter.get('/:id',
+    expressAsyncHandler(async (req, res) => {
+        const product = await Product.findById(req.params.id);
+        if (product) {
+            res.send(product);
+        } else {
+            res.status(404).send({ message: 'Product Not Found' });
+        }
+    }));
+
+productRouter.post('/',
     isAuth,
     isAdmin,
     expressAsyncHandler(async (req, res) => {
@@ -46,8 +55,7 @@ productRouter.post(
     })
 );
 
-productRouter.put(
-    '/:id',
+productRouter.put('/:id',
     isAuth,
     isAdmin,
     expressAsyncHandler(async (req, res) => {
@@ -68,8 +76,7 @@ productRouter.put(
         }
     }))
 
-productRouter.delete(
-    '/:id',
+productRouter.delete('/:id',
     isAuth,
     isAdmin,
     expressAsyncHandler(async (req, res) => {

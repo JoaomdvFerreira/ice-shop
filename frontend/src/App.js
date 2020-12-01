@@ -1,6 +1,8 @@
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Link, Route } from 'react-router-dom';
 import { signout } from './actions/userActions';
+
 import AdminRoute from './components/AdminRoute';
 import PrivateRoute from './components/PrivateRoute';
 
@@ -22,7 +24,9 @@ import UserEditScreen from './screens/UserEditScreen';
 import UserListScreen from './screens/UserListScreen';
 
 import { FaCaretDown } from 'react-icons/fa';
-import NotFoundRoute from './components/NotFoundRoute';
+import SearchBox from './components/SearchBox';
+import SearchScreen from './screens/SearchScreen';
+
 
 function App() {
   const cart = useSelector(state => state.cart);
@@ -36,12 +40,19 @@ function App() {
     dispatch(signout());
   }
 
+  useEffect(() => {
+    // dispatch(searchProducts());
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <div className="grid-container">
         <header className="row">
           <div>
             <Link className="brand" to="/">Icecream Shop</Link>
+          </div>
+          <div>
+            <Route render={({ history }) => <SearchBox history={history}></SearchBox>}></Route>
           </div>
           <div>
             <Link to="/cart">Cart
@@ -94,25 +105,23 @@ function App() {
           </div>
         </header>
         <main>
-          <Switch>
-            <Route path="/cart/:id?" component={CartScreen}></Route>
-            <Route path="/product/:id" component={ProductScreen} exact></Route>
-            <Route path="/product/:id/edit" component={ProductEditScreen} exact></Route>
-            <Route path="/signin" component={SigninScreen} exact></Route>
-            <Route path="/register" component={RegisterScreen} exact></Route>
-            <Route path="/shipping" component={ShippingAddressScreen} exact></Route>
-            <Route path="/payment" component={PaymentMethodScreen} exact></Route>
-            <Route path="/placeorder" component={PlaceOrderScreen} exact></Route>
-            <Route path="/order/:id" component={OrderScreen} exact></Route>
-            <Route path="/orderhistory" component={OrderHistoryScreen} exact></Route>
-            <PrivateRoute path="/profile" component={ProfileScreen} exact></PrivateRoute>
-            <AdminRoute path="/productlist" component={ProductListScreen} exact></AdminRoute>
-            <AdminRoute path="/orderlist" component={OrderListScreen} exact></AdminRoute>
-            <AdminRoute path="/userlist" component={UserListScreen} exact></AdminRoute>
-            <AdminRoute path="/user/:id/edit" component={UserEditScreen} exact></AdminRoute>
-            <Route path="/" component={HomeScreen} exact></Route>
-            <Route component={NotFoundRoute}></Route>
-          </Switch>
+          <Route path="/cart/:id?" component={CartScreen}></Route>
+          <Route path="/product/:id" component={ProductScreen} exact></Route>
+          <Route path="/product/:id/edit" component={ProductEditScreen} exact></Route>
+          <Route path="/signin" component={SigninScreen} exact></Route>
+          <Route path="/register" component={RegisterScreen} exact></Route>
+          <Route path="/shipping" component={ShippingAddressScreen} exact></Route>
+          <Route path="/payment" component={PaymentMethodScreen} exact></Route>
+          <Route path="/placeorder" component={PlaceOrderScreen} exact></Route>
+          <Route path="/order/:id" component={OrderScreen} exact></Route>
+          <Route path="/orderhistory" component={OrderHistoryScreen} exact></Route>
+          <Route path="/search/name/:name?" component={SearchScreen}></Route>
+          <PrivateRoute path="/profile" component={ProfileScreen} exact></PrivateRoute>
+          <AdminRoute path="/productlist" component={ProductListScreen} exact></AdminRoute>
+          <AdminRoute path="/orderlist" component={OrderListScreen} exact></AdminRoute>
+          <AdminRoute path="/userlist" component={UserListScreen} exact></AdminRoute>
+          <AdminRoute path="/user/:id/edit" component={UserEditScreen} exact></AdminRoute>
+          <Route path="/" component={HomeScreen} exact></Route>
         </main>
         <footer className="row center">
           All rights reserved

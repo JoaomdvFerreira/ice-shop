@@ -17,7 +17,7 @@ export default function GoogleSignin() {
     }
 
     const failureHandler = (res) => {
-        alert("Login Failed -> response:", res);
+        return;
     }
 
     return (
